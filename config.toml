@@ -6,9 +6,17 @@ copyright = "{year}"
 
 [menu]
 [[menu.main]]
+  name = 'Manifeste'
+  url = '/#manifeste'
+  weight = 10
+[[menu.main]]
   name = 'La méthode'
   url = '/#methode'
   weight = 20
+[[menu.main]]
+  name = 'La team'
+  url = '/#diaporama'
+  weight = 30
 [[menu.main]]
   name = 'Parole aux athlètes'
   url = '/#recits'

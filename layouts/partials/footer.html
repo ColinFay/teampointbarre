@@ -1,22 +1,41 @@
 <!-- Footer -->
-<footer class="wrapper style1 align-center">
-  <div class="inner">
-    <div class="image fit">
-      <img src="/images/logo.png" alt="logo de la team point barre" />
-    </div>
-  </div>
-  <div class="inner">
-    <ul class="icons">
-      {{ with .Site.Params.social.instagram }}<li><a target="_blank" href="{{.}}" class="icon brands style2 fa-instagram"><span class="label">Instagram</span></a></li>{{end}}
-      {{ with .Site.Params.social.email }}<li><a target="_blank" href="mailto:{{.}}" class="fav icon style2 fa-envelope"><span class="label">Email</span></a></li>{{end}}
-    </ul>
-    <p>
-      Team Point Barre &copy; 2023 propulsé avec <span class="footerspacer icon fa-heart"></span> par Hugo, thème Hugo Story
-    </p>
-  </div>
+<footer class="tpb-footer">
+  <img class="tpb-footer__logo" src="/images/logo-tpb.png" alt="Logo Team Point Barre — Pas vite mais tout le temps" />
+  <ul class="tpb-footer__social">
+    {{ with .Site.Params.social.instagram }}<li><a target="_blank" rel="noopener" href="{{ . }}" aria-label="Instagram"><span class="fab fa-instagram"></span></a></li>{{ end }}
+    {{ with .Site.Params.social.email }}<li><a target="_blank" rel="noopener" href="mailto:{{ . }}" aria-label="Email"><span class="fas fa-envelope"></span></a></li>{{ end }}
+  </ul>
+  <p class="tpb-footer__handle">@teampointbarre</p>
+  <p class="tpb-footer__meta">Team Point Barre &copy; {{ now.Year }}</p>
 </footer>
 
 <!-- FontAwesome JS -->
 {{ range .Site.Params.asset.fontawesome_js -}}
     <script type="text/javascript" src="{{ . | absURL }}"></script>
 {{- end }}
+
+<!-- Interactions TPB -->
+<script>
+(function () {
+  // Diaporama
+  document.querySelectorAll('[data-tpb-slider]').forEach(function (slider) {
+    var slides = slider.querySelectorAll('.tpb-slide');
+    var dots   = slider.querySelectorAll('.tpb-slider__dots button');
+    if (!slides.length) return;
+    var current = 0, timer;
+    function go(i) {
+      current = (i + slides.length) % slides.length;
+      slides.forEach(function (s, k) { s.classList.toggle('is-active', k === current); });
+      dots.forEach(function (d, k) { d.classList.toggle('is-active', k === current); });
+    }
+    function next() { go(current + 1); }
+    function reset() { clearInterval(timer); timer = setInterval(next, 5000); }
+    slider.querySelector('.tpb-slider__btn--next').addEventListener('click', function () { next(); reset(); });
+    slider.querySelector('.tpb-slider__btn--prev').addEventListener('click', function () { go(current - 1); reset(); });
+    dots.forEach(function (d) {
+      d.addEventListener('click', function () { go(parseInt(d.dataset.index, 10)); reset(); });
+    });
+    reset();
+  });
+})();
+</script>

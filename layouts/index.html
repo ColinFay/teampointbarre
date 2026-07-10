@@ -1,10 +1,10 @@
 {{ define "main" }}
 
-{{ partial "banner" hugo.Data.banner }}
-{{ partial "spotlight" hugo.Data.methode }}
-{{ partial "timeline" hugo.Data.timeline }}
-{{ partial "masonry" site.GetPage "/recits" }}
-{{ partial "spotlight" hugo.Data.inscription }}
+{{ partial "tpb/hero" .Params.hero }}
+{{ partial "tpb/manifeste" (.Site.GetPage "/manifeste") }}
+{{ partial "tpb/video" (.Site.GetPage "/methode") }}
+{{ partial "tpb/diaporama" (.Site.GetPage "/diaporama") }}
+{{ partial "tpb/citations" (.Site.GetPage "/citations") }}
 
 {{ partial "footer" . }}
 
