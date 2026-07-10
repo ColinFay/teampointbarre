@@ -1,0 +1,21 @@
+[build]
+  publish = "public"
+  command = "hugo --gc --minify"
+
+[build.environment]
+  HUGO_VERSION = "0.160.0"
+
+# Production deploys (main branch): use the site's canonical URL as baseURL
+[context.production]
+  command = "hugo --gc --minify -b $URL"
+
+[context.production.environment]
+  HUGO_ENV = "production"
+  HUGO_ENVIRONMENT = "production"
+
+# Deploy previews (pull requests) and branch deploys: use the ephemeral URL
+[context.deploy-preview]
+  command = "hugo --gc --minify -b $DEPLOY_PRIME_URL"
+
+[context.branch-deploy]
+  command = "hugo --gc --minify -b $DEPLOY_PRIME_URL"
