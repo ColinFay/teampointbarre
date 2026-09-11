@@ -1,27 +1,11 @@
-<!DOCTYPE HTML>
-<!--
-    Hugo Story by CaressOfSteel
-    A (modular, highly tweakable) responsive one-page theme for Hugo.
-    Ported from Story by HTML5UP.
-    This Hugo theme is licensed under the Creative Commons Attribution 3.0 License.
-  -->
-<html>
-  
+<!DOCTYPE html>
+<html lang="fr">
   {{ partial "head" . }}
-  
-  <body class="is-preload">
-    <header id="header">
-      <h1>{{ .Title }}</h1>
-      {{ partial "menu" . }}
-    </header>  
-
-    <!-- Wrapper -->
-    <div id="wrapper" class="tpb">
+  <body>
+    {{ partial "header" . }}
+    <main>
       {{- block "main" . }}{{- end }}
-      <!-- Wrapper -->
-    </div>
-    
-    {{ partial "scripts" . }}
-    
+    </main>
+    {{ partial "footer" . }}
   </body>
 </html>

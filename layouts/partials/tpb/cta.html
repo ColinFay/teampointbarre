@@ -1,0 +1,17 @@
+{{- /* Bandeau d'appel final. dict : eyebrow, title, text, (form = bouton vers le formulaire). */ -}}
+<section class="section section--dark cta grain">
+  <div class="inner cta__inner">
+    {{ with .eyebrow }}<span class="eyebrow">{{ . }}</span>{{ end }}
+    <h2>{{ partial "tpb/md" .title }}</h2>
+    {{ with .text }}<p class="lead">{{ partial "tpb/md" . }}</p>{{ end }}
+    <div class="actions">
+      {{ if .form }}
+      <a class="btn btn--primary" href="{{ site.Params.joinForm }}" target="_blank" rel="noopener">Remplir le formulaire</a>
+      {{ else }}
+      <a class="btn btn--primary" href="/rejoindre/">Rejoindre la team</a>
+      <a class="btn btn--ghost" href="/rejoindre/#parcours">Comment ça se passe</a>
+      {{ end }}
+    </div>
+    {{ partial "tpb/sunset" }}
+  </div>
+</section>

@@ -1,5 +1,10 @@
 ---
-title: "Aline"
+title: "Combo bosses"
+initial: 'A.'
+tag: 'Gravel & trail'
+weight: 2
+summary: "Deux belles montées par jour, sur deux jours, à vélo et à pied. Départ et arrivée Strasbourg, les Vosges au milieu, les animaux des bois à la tombée de la nuit."
+quote: "Je n'aurais jamais fait ces folles aventures sans la team."
 date: 2023-07-09T20:15:24+02:00
 draft: false
 image: "/recits/aline/combo1.jpg"

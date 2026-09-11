@@ -1,11 +1,113 @@
 {{ define "main" }}
+{{ $methode := site.GetPage "/methode" }}
+{{ $rejoindre := site.GetPage "/rejoindre" }}
 
-{{ partial "tpb/hero" .Params.hero }}
-{{ partial "tpb/manifeste" (.Site.GetPage "/manifeste") }}
-{{ partial "tpb/video" (.Site.GetPage "/methode") }}
-{{ partial "tpb/diaporama" (.Site.GetPage "/diaporama") }}
-{{ partial "tpb/citations" (.Site.GetPage "/citations") }}
+{{ with .Params.hero }}
+<section class="hero" style="--img: url('{{ .image }}')">
+  <div class="inner hero__inner">
+    <div class="hero__content">
+      <span class="eyebrow">{{ .eyebrow }}</span>
+      <h1>{{ .title }}</h1>
+      <p class="hero__text">{{ partial "tpb/md" .text }}</p>
+      <div class="actions">
+        <a class="btn btn--primary" href="/rejoindre/">Rejoindre la team</a>
+        <a class="btn btn--ghost" href="/methode/">Comprendre la méthode</a>
+      </div>
+      {{ with .season }}<span class="chip chip--season">{{ . }}</span>{{ end }}
+    </div>
+    <img class="hero__badge" src="/images/logo-tpb.png" alt="Badge Team Point Barre — Pas vite mais tout le temps" width="300" height="300">
+  </div>
+</section>
+{{ end }}
 
-{{ partial "footer" . }}
+{{ with .Params.filtre }}
+<section class="section">
+  <div class="inner split">
+    {{ partial "tpb/intro" . }}
+    <div class="filtre">
+      {{ range .non }}
+      <div class="filtre__row"><p>{{ partial "tpb/md" .q }}</p><p class="filtre__r">{{ .r }}</p></div>
+      {{ end }}
+      {{ with .oui }}
+      <div class="filtre__oui"><p>{{ partial "tpb/md" .q }}</p><p class="filtre__r">{{ .r }}</p></div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}
 
+{{ partial "tpb/ridge" }}
+<section class="section section--dark section--after-ridge grain">
+  <div class="inner stack-lg">
+    {{ partial "tpb/intro" (merge .Params.methode (dict "split" true)) }}
+    <div class="grid grid--4">
+      {{ range $i, $e := $methode.Params.etapes }}
+      <div class="panel step-card">
+        <p class="step-card__num">{{ printf "%02d" (add $i 1) }}</p>
+        <h3>{{ .title }}</h3>
+        <p>{{ partial "tpb/md" .court }}</p>
+      </div>
+      {{ end }}
+    </div>
+    <div class="quote-bar">
+      <p class="serif">«&nbsp;{{ .Params.methode.quote }}&nbsp;»</p>
+      <a class="btn btn--ghost" href="/methode/">Toute la méthode {{ partial "tpb/icon" "arrow" }}</a>
+    </div>
+  </div>
+</section>
+
+{{ with .Params.terrains }}
+<section class="section section--tight-bottom">
+  <div class="inner stack-lg">
+    {{ partial "tpb/intro" . }}
+    <div class="grid grid--2">
+      {{ with .trail }}
+      <div class="tile tile--photo" style="--img: url('{{ .image }}')">
+        <span class="chip chip--yellow">{{ .label }}</span>
+        <h3>{{ .title }}</h3>
+        <p>{{ partial "tpb/md" .text }}</p>
+      </div>
+      {{ end }}
+      {{ with .velo }}
+      <div class="tile tile--velo grain">
+        <div class="tile__body">
+          <span class="chip chip--lime">{{ .label }}</span>
+          <h3>{{ .title }}</h3>
+          <p>{{ partial "tpb/md" .text }}</p>
+        </div>
+        <div class="tile__band"><p class="tile__stat">{{ .stat }}</p><p>{{ partial "tpb/md" .statText }}</p></div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}
+
+<section class="section section--tight-top">
+  <div class="inner stack-lg">
+    <div class="intro intro--split">
+      {{ partial "tpb/intro" .Params.preuve }}
+      <a class="btn btn--outline" href="/team/#recits">Lire leurs récits</a>
+    </div>
+    <div class="grid grid--3">
+      {{ range first 3 (site.GetPage "/citations").Pages.ByWeight }}{{ partial "tpb/quote" . }}{{ end }}
+    </div>
+  </div>
+</section>
+
+<section class="section section--dark cta cta--left grain">
+  <div class="inner cta__inner">
+    {{ partial "tpb/intro" .Params.rejoindre }}
+    <ol class="join-steps">
+      {{ range $i, $e := $rejoindre.Params.parcours.etapes }}
+      <li><p class="join-steps__title">{{ add $i 1 }} · {{ .title }}</p><p>{{ partial "tpb/md" .court }}</p></li>
+      {{ end }}
+    </ol>
+    <div class="actions">
+      <a class="btn btn--primary" href="/rejoindre/">Rejoindre la team</a>
+      <a class="btn btn--ghost" href="/rejoindre/#parcours">Comment ça se passe</a>
+    </div>
+    {{ partial "tpb/sunset" }}
+  </div>
+</section>
 {{ end }}

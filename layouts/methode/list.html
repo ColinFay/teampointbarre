@@ -1,0 +1,140 @@
+{{ define "main" }}
+{{ with .Params.hero }}
+<section class="page-hero grain">
+  <div class="page-hero__content">
+    <span class="eyebrow">{{ .eyebrow }}</span>
+    <h1>{{ .title }}</h1>
+    <p class="hero__text">{{ partial "tpb/md" .text }}</p>
+    <p class="page-hero__note">{{ .note }}</p>
+  </div>
+  <div class="page-hero__photo" style="--img: url('{{ .image }}')"></div>
+</section>
+{{ end }}
+
+<nav class="toc">
+  <div class="inner toc__inner">
+    <span class="toc__label">Sur cette page</span>
+    <a href="#principe">Le principe</a>
+    <a href="#etapes">Les 4 étapes</a>
+    <a href="#vocabulaire">Le vocabulaire</a>
+    <a href="#saison">La saison type</a>
+    <a href="#video">En vidéo</a>
+  </div>
+</nav>
+
+{{ with .Params.principe }}
+<section class="section" id="principe">
+  <div class="inner split">
+    {{ partial "tpb/intro" . }}
+    <ol class="axiomes">
+      {{ range .axiomes }}
+      <li>
+        <p class="serif">«&nbsp;{{ .quote }}&nbsp;»</p>
+        <p>{{ partial "tpb/md" .text }}</p>
+      </li>
+      {{ end }}
+    </ol>
+  </div>
+</section>
+{{ end }}
+
+<section class="section section--white" id="etapes">
+  <div class="inner stack-lg">
+    {{ partial "tpb/intro" (merge .Params.etapesIntro (dict "split" true)) }}
+    <ol class="etapes">
+      {{ range $i, $e := .Params.etapes }}
+      <li class="etape">
+        <p class="etape__num">{{ printf "%02d" (add $i 1) }}</p>
+        <div class="etape__body">
+          <h3>{{ .title }}</h3>
+          <p>{{ partial "tpb/md" .long }}</p>
+        </div>
+        <div class="etape__regle">
+          <span>{{ .regleLabel }}</span>
+          <p>{{ .regle }}</p>
+        </div>
+      </li>
+      {{ end }}
+    </ol>
+    {{ with .Params.exemple }}
+    <div class="exemple grain">
+      <div class="stack">
+        <span class="eyebrow">{{ .eyebrow }}</span>
+        <p>{{ .text }}</p>
+      </div>
+      <p class="serif">«&nbsp;{{ .quote }}&nbsp;»</p>
+    </div>
+    {{ end }}
+  </div>
+</section>
+
+{{ with .Params.vocabulaire }}
+<div class="ridge-wrap ridge-wrap--white">{{ partial "tpb/ridge" }}</div>
+<section class="section section--dark section--after-ridge grain" id="vocabulaire">
+  <div class="inner stack-lg">
+    {{ partial "tpb/intro" (merge . (dict "split" true)) }}
+    <div class="grid grid--3">
+      {{ range .mots }}
+      <div class="panel mot">
+        <h3>{{ .title }}</h3>
+        <p>{{ partial "tpb/md" .text }}</p>
+        <p class="serif mot__quote">«&nbsp;{{ .quote }}&nbsp;»</p>
+      </div>
+      {{ end }}
+      {{ with .ennemi }}
+      <div class="panel mot mot--ennemi">
+        <span class="chip chip--orange">{{ partial "tpb/md" .label }}</span>
+        <h3>{{ .title }}</h3>
+        <p>{{ partial "tpb/md" .text }}</p>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}
+
+{{ with .Params.saison }}
+<section class="section" id="saison">
+  <div class="inner stack-lg">
+    {{ partial "tpb/intro" (merge . (dict "split" true)) }}
+    <div class="frise">
+      <div class="frise__mois"><span>Nov.</span><span>Déc.</span><span>Janv.</span><span>Févr.</span><span>Mars</span><span>Avr.</span><span>Mai</span><span>Juin</span><span>Juil.</span><span>Août</span><span>Sept.</span><span>Oct.</span></div>
+      <div class="frise__bar">
+        {{ range .temps }}<div class="frise__temps frise__temps--{{ .couleur }}" style="flex: {{ .mois }}"><span>{{ .bar }}</span></div>{{ end }}
+      </div>
+    </div>
+    <div class="grid grid--4">
+      {{ range .temps }}
+      <div class="temps temps--{{ .couleur }}">
+        <h3>{{ .title }}</h3>
+        <p>{{ partial "tpb/md" .text }}</p>
+      </div>
+      {{ end }}
+    </div>
+    {{ with .cloitre }}
+    <div class="card feature">
+      <div class="feature__photo" style="--img: url('{{ .image }}')"></div>
+      <div class="feature__body">
+        <span class="eyebrow">{{ .eyebrow }}</span>
+        <p class="serif">«&nbsp;{{ .quote }}&nbsp;»</p>
+        <p>{{ partial "tpb/md" .text }}</p>
+      </div>
+    </div>
+    {{ end }}
+  </div>
+</section>
+{{ end }}
+
+{{ with .Params.video }}
+<section class="section section--deep grain" id="video">
+  <div class="inner split split--video">
+    {{ partial "tpb/intro" . }}
+    <div class="video">
+      <iframe src="https://www.youtube-nocookie.com/embed/{{ .code }}" title="{{ .label }}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+  </div>
+</section>
+{{ end }}
+
+{{ partial "tpb/cta" .Params.cta }}
+{{ end }}

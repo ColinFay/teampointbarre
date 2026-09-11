@@ -1,0 +1,8 @@
+{{- /* Surtitre + titre (+ chapô). dict : eyebrow, title, text, split (chapô à droite). */ -}}
+<div class="intro{{ if .split }} intro--split{{ end }}">
+  <div class="intro__title">
+    {{ with .eyebrow }}<span class="eyebrow">{{ . }}</span>{{ end }}
+    {{ with .title }}<h2>{{ partial "tpb/md" . }}</h2>{{ end }}
+  </div>
+  {{ with .text }}<p class="lead">{{ partial "tpb/md" . }}</p>{{ end }}
+</div>

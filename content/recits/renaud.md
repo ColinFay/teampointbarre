@@ -1,5 +1,10 @@
 ---
-title: "Renaud"
+title: "Le tour des potes"
+initial: 'R.'
+tag: 'Vélo sacoche'
+weight: 1
+summary: "1 200 km en 5 jours pour relier ses potes de collège, avec deux étapes qui flirtent avec les 300 km. Une bière, un repas, un lit à chaque arrivée."
+quote: "Cela avait tellement de sens de le faire."
 date: 2023-07-09T20:15:24+02:00
 draft: false
 ---
