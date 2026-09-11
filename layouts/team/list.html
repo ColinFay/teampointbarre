@@ -1,0 +1,99 @@
+{{ define "main" }}
+{{ with .Params.hero }}
+<section class="hero hero--team" style="--img: url('{{ .image }}')">
+  <div class="inner hero__inner">
+    <div class="hero__content">
+      <span class="eyebrow">{{ .eyebrow }}</span>
+      <h1>{{ .title }}</h1>
+      <p class="hero__text">{{ partial "tpb/md" .text }}</p>
+    </div>
+    <p class="serif hero__baseline">{{ .baseline }}</p>
+  </div>
+</section>
+{{ end }}
+
+{{ with .Params.histoire }}
+<section class="section" id="histoire">
+  <div class="inner stack-lg">
+    {{ partial "tpb/intro" (merge . (dict "split" true)) }}
+    <ol class="histoire">
+      {{ range .dates }}
+      <li>
+        <p class="histoire__annee">{{ partial "tpb/md" .annee }}</p>
+        <p>{{ partial "tpb/md" .text }}</p>
+      </li>
+      {{ end }}
+    </ol>
+  </div>
+</section>
+{{ end }}
+
+{{ with .Params.rdv }}
+{{ partial "tpb/ridge" }}
+<section class="section section--dark section--after-ridge grain" id="rendez-vous">
+  <div class="inner stack-lg">
+    {{ partial "tpb/intro" (merge . (dict "split" true)) }}
+    <div class="rdv">
+      {{ with .bernadette }}
+      <div class="bernadette">
+        <div class="stack">
+          <span class="chip chip--canard">{{ .label }}</span>
+          <h3>{{ .title }}</h3>
+          <p>{{ partial "tpb/md" .text }}</p>
+        </div>
+        <div class="bernadette__stats">
+          {{ range .stats }}<div><p class="bernadette__valeur">{{ .valeur }}</p><p class="bernadette__label">{{ .label }}</p></div>{{ end }}
+        </div>
+      </div>
+      {{ end }}
+      <div class="rdv__autres">
+        {{ range .autres }}
+        <div class="panel">
+          <span class="chip chip--yellow">{{ .label }}</span>
+          <h3>{{ .title }}</h3>
+          <p>{{ partial "tpb/md" .text }}</p>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+    <div class="grid grid--3">
+      {{ range .petits }}
+      <div class="panel panel--line">
+        <h3>{{ .title }}</h3>
+        <p>{{ partial "tpb/md" .text }}</p>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}
+
+<section class="section section--tight-bottom" id="recits">
+  <div class="inner stack-lg">
+    {{ partial "tpb/intro" (merge .Params.recits (dict "split" true)) }}
+    <div class="grid grid--2">
+      {{ range (site.GetPage "/recits").Pages.ByWeight }}
+      <article class="card recit">
+        <div class="recit__top"><span class="chip chip--muted">{{ .Params.tag }}</span><span class="recit__initial">{{ .Params.initial }}</span></div>
+        <h3>{{ .Title }}</h3>
+        <p>{{ partial "tpb/md" .Params.summary }}</p>
+        {{ with .Params.quote }}<p class="serif recit__quote">«&nbsp;{{ . }}&nbsp;»</p>{{ end }}
+        <a class="recit__link" href="{{ .RelPermalink }}">Lire le récit →</a>
+      </article>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight-top">
+  <div class="inner mosaique">
+    {{ range .Params.mosaique }}<div class="mosaique__photo" style="--img: url('{{ . }}')"></div>{{ end }}
+    <a class="mosaique__insta grain" href="{{ site.Params.social.instagram }}" target="_blank" rel="noopener">
+      <span>Suis la team au quotidien</span>
+      <span class="mosaique__handle">@teampointbarre</span>
+    </a>
+  </div>
+</section>
+
+{{ partial "tpb/cta" .Params.cta }}
+{{ end }}

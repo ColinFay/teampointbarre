@@ -1,5 +1,9 @@
 ---
-title: "Samuel"
+title: "24 h pour les P'tits Potos"
+initial: 'S.'
+tag: 'Trail'
+weight: 3
+summary: "Courir 24 heures pour remercier les adhérents d'une association, la faire connaître, et faire la fête à la sauce point barre. Des membres de la team étaient au bal."
 date: 2023-07-09T20:15:24+02:00
 draft: false
 image: "/recits/sam/sam1.jpg"

@@ -1,6 +1,7 @@
 ---
-author: 'Samuel'
-weight: 6
+author: 'S.'
+meta: 'Trail'
+weight: 7
 ---
 
 La sauce point barre : le sens avant le chrono.

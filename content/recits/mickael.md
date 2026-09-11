@@ -1,5 +1,10 @@
 ---
-title: "Micka"
+title: "L'Ultra Traversée des Mille Étangs"
+initial: 'M.'
+tag: 'Trail'
+weight: 4
+summary: "Un ultra créé de toutes pièces pour mettre en lumière un plateau méconnu, qui regorge de trésors insoupçonnés. Objectif validé."
+quote: "J'avais vraiment besoin d'être bousculé."
 date: 2023-07-09T20:15:24+02:00
 draft: false
 ---

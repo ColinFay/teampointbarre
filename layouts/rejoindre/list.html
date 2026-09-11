@@ -1,0 +1,96 @@
+{{ define "main" }}
+{{ with .Params.hero }}
+<section class="hero hero--rejoindre" style="--img: url('{{ .image }}')">
+  <div class="inner hero__inner">
+    <div class="hero__content">
+      <span class="eyebrow">{{ .eyebrow }}</span>
+      <h1>{{ partial "tpb/md" .title }}</h1>
+      <p class="hero__text">{{ partial "tpb/md" .text }}</p>
+      <div class="actions">
+        <a class="btn btn--primary" href="{{ site.Params.joinForm }}" target="_blank" rel="noopener">Remplir le formulaire</a>
+        <a class="btn btn--ghost" href="/methode/">Lire la méthode d'abord</a>
+      </div>
+    </div>
+    <div class="rentree">
+      <p class="rentree__title">{{ .rentreeTitle }}</p>
+      {{ range .rentree }}
+      <div class="rentree__row"><span>{{ .quand }}</span><p>{{ partial "tpb/md" .quoi }}</p></div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}
+
+{{ with .Params.filtre }}
+<section class="section" id="pour-qui">
+  <div class="inner stack-lg">
+    {{ partial "tpb/intro" . }}
+    <div class="grid grid--2">
+      <div class="card liste liste--oui">
+        <span class="chip chip--lime">C'est pour toi si…</span>
+        <ul>{{ range .oui }}<li>{{ partial "tpb/icon" "check" }}<p>{{ partial "tpb/md" . }}</p></li>{{ end }}</ul>
+      </div>
+      <div class="card liste liste--non">
+        <span class="chip chip--orange">Ce n'est pas pour toi si…</span>
+        <ul>{{ range .non }}<li>{{ partial "tpb/icon" "cross" }}<p>{{ partial "tpb/md" . }}</p></li>{{ end }}</ul>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}
+
+{{ with .Params.sac }}
+{{ partial "tpb/ridge" }}
+<section class="section section--dark section--after-ridge grain" id="sac">
+  <div class="inner stack-lg">
+    {{ partial "tpb/intro" (merge . (dict "split" true)) }}
+    <div class="grid grid--3">
+      {{ range .items }}
+      <div class="panel sac{{ if .accent }} sac--accent{{ end }}">
+        <div class="sac__icon">{{ partial "tpb/icon" .icon }}</div>
+        <h3>{{ .title }}</h3>
+        <p>{{ partial "tpb/md" .text }}</p>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}
+
+{{ with .Params.parcours }}
+<section class="section" id="parcours">
+  <div class="inner split">
+    <div class="stack">
+      {{ partial "tpb/intro" . }}
+      <div class="parcours__photo" style="--img: url('{{ .image }}')"></div>
+    </div>
+    <ol class="parcours">
+      {{ range .etapes }}
+      <li>
+        <h3>{{ .title }}</h3>
+        <p>{{ partial "tpb/md" .text }}</p>
+      </li>
+      {{ end }}
+    </ol>
+  </div>
+</section>
+{{ end }}
+
+{{ with .Params.faq }}
+<section class="section section--white" id="faq">
+  <div class="inner split">
+    {{ partial "tpb/intro" . }}
+    <dl class="faq">
+      {{ range .items }}
+      <div class="faq__item">
+        <dt>{{ partial "tpb/md" .q }}</dt>
+        <dd>{{ partial "tpb/md" .r }}</dd>
+      </div>
+      {{ end }}
+    </dl>
+  </div>
+</section>
+{{ end }}
+
+{{ partial "tpb/cta" (merge .Params.cta (dict "form" true)) }}
+{{ end }}

@@ -1,0 +1,8 @@
+{{- /* Carte citation d'un membre (page de content/citations). */ -}}
+<figure class="card quote">
+  <blockquote class="serif">«&nbsp;{{ .Plain | htmlUnescape | strings.TrimSpace }}&nbsp;»</blockquote>
+  <figcaption>
+    <span class="quote__initial">{{ .Params.author }}</span>
+    {{ with .Params.meta }}<span class="quote__meta">{{ . }}</span>{{ end }}
+  </figcaption>
+</figure>

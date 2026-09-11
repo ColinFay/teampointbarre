@@ -1,6 +1,7 @@
 ---
-author: 'Eliott'
-weight: 1
+author: 'E.'
+meta: 'Trail'
+weight: 3
 ---
 
-J'étais pleins de fausses certitudes. Aujourd'hui, je doute et j'adore.
+J'étais plein de fausses certitudes. Aujourd'hui, je doute. Et j'adore.

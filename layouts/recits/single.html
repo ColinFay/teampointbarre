@@ -1,0 +1,11 @@
+{{ define "main" }}
+<article class="section recit-page">
+  <div class="inner recit-page__inner">
+    <a class="recit__link" href="/team/#recits">← Tous les récits</a>
+    <span class="eyebrow">{{ .Params.tag }} · {{ .Params.initial }}</span>
+    <h1>{{ .Title }}</h1>
+    <div class="recit-page__body">{{ .Content }}</div>
+  </div>
+</article>
+{{ partial "tpb/cta" (site.GetPage "/team").Params.cta }}
+{{ end }}

@@ -1,8 +1,8 @@
 <head>
-  <title>{{ .Site.Title }}</title>
+  <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} · {{ site.Title }}{{ end }}</title>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-  <meta name="description" content="{{ .Site.Params.Description }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="{{ .Description | default site.Params.description }}">
 
   {{ partial "favicon" }}
 
@@ -11,27 +11,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap">
 
-  <!-- CSS -->
-  {{ if hugo.IsServer }}
-  {{ $style := resources.Get "sass/main.scss" | resources.ExecuteAsTemplate "scss/main.scss" . | css.Sass (dict "targetPath" "css/main.css" "outputStyle" "compressed" "enableSourceMap" false) }}
-  <link rel="stylesheet" href="{{ ($style).RelPermalink }}">
-  {{ else }}
-  {{ $style := resources.Get "sass/main.scss" | resources.ExecuteAsTemplate "scss/main.scss" . | css.Sass (dict "targetPath" "css/main.css" "enableSourceMap" false) }}
-  <link rel="stylesheet" href="{{ ($style | minify).RelPermalink }}">
-  {{ end }}
-  {{ if hugo.IsServer }}
-  {{ $noscript := resources.Get "sass/noscript.scss" | resources.ExecuteAsTemplate "noscript.scss" . | css.Sass (dict "targetPath" "css/noscript.css" "enableSourceMap" false) }}
-  <noscript><link rel="stylesheet" href="{{ ($noscript).RelPermalink }}" /></noscript>
-  {{ else }}
-  {{ $noscript := resources.Get "sass/noscript.scss" | resources.ExecuteAsTemplate "noscript.scss" . | css.Sass (dict "targetPath" "css/noscript.css" "enableSourceMap" false) }}
-  <noscript><link rel="stylesheet" href="{{ ($noscript | minify).RelPermalink }}" /></noscript>
-  {{end}}
-  
-  <!-- FontAwesome CSS -->
-  {{ range .Site.Params.asset.fontawesome_css -}}
-  <link rel="stylesheet" href="{{ . | absURL }}">
-  {{- end }}
-
-  {{ $sapin := resources.Get "css/sapin.css" | fingerprint }}
+  {{ $sapin := resources.Get "css/sapin.css" | minify | fingerprint }}
   <link rel="stylesheet" href="{{ $sapin.RelPermalink }}">
 </head>
